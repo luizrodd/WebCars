@@ -32,13 +32,13 @@ public class BrandController {
     }
 
     @GetMapping("/{id}")
-    public BrandResponseDTO getBrand(@PathVariable Long id){
+    public BrandResponseDTO getBrand(@PathVariable Integer id){
         Brand brand = brandRepository.findById(id).orElseThrow();
         return new BrandResponseDTO(brand);
     }
 
     @PutMapping("/{id}")
-    public void updateBrand(@PathVariable Long id, @RequestBody BrandRequestDTO data){
+    public void updateBrand(@PathVariable Integer id, @RequestBody BrandRequestDTO data){
         Brand brand = brandRepository.findById(id).orElseThrow();
         brand.update(data);
         brandRepository.save(brand);
@@ -46,7 +46,7 @@ public class BrandController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteBrand(@PathVariable Long id){
+    public void deleteBrand(@PathVariable Integer id){
         Brand brand = brandRepository.findById(id).orElseThrow();
         brandRepository.delete(brand);
         return;

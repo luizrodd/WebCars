@@ -1,8 +1,4 @@
 package com.example.Webmotors.dto;
 
-import com.example.Webmotors.models.model.Model;
-import com.example.Webmotors.models.model.brand.Brand;
-import com.example.Webmotors.models.model.version.Version;
-
-public record CarRequestDTO(String description, Brand brand, Model model, Version version) {
+public record CarRequestDTO(String description, Integer brand_id, Integer model_id, Integer version_id){
 }

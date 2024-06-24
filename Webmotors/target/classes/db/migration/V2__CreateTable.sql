@@ -1,5 +1,5 @@
 create table Car(
-    id int primary key,
+    id int identity primary key,
     description varchar(255) not null,
     brand_id int not null,
     model_id int not null,

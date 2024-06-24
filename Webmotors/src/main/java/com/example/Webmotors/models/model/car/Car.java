@@ -1,8 +1,10 @@
 package com.example.Webmotors.models.model.car;
 
+import com.example.Webmotors.dto.BrandRequestDTO;
 import com.example.Webmotors.dto.CarRequestDTO;
-import com.example.Webmotors.models.model.brand.Brand;
+import com.example.Webmotors.dto.ModelRequestDTO;
 import com.example.Webmotors.models.model.Model;
+import com.example.Webmotors.models.model.brand.Brand;
 import com.example.Webmotors.models.model.version.Version;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -14,7 +16,7 @@ public class Car {
 
     @Id
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "brand_id")
@@ -31,17 +33,6 @@ public class Car {
     @Column(name = "description")
     private String description;
 
-    public Car(int id, String brandId, String modelId, String versionId) {
-    }
-
-    public Car(CarRequestDTO data) {
-        this.brand = data.brand();
-        this.model = data.model();
-        this.version = data.version();
-        this.description = data.description();
-
-    }
-
     public Brand getBrand() {
         return this.brand;
     }
@@ -52,5 +43,12 @@ public class Car {
 
     public Version getVersion() {
         return this.version;
+    }
+
+    public Car(CarRequestDTO data, Brand brand, Model model, Version version) {
+        this.description = data.description();
+        this.brand = brand;
+        this.model = model;
+        this.version = version;
     }
 }
