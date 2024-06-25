@@ -10,6 +10,7 @@ import com.example.Webmotors.repository.BrandRepository;
 import com.example.Webmotors.repository.CarRepository;
 import com.example.Webmotors.repository.ModelRepository;
 import com.example.Webmotors.repository.VersionRepository;
+import com.example.Webmotors.services.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,36 +22,34 @@ import java.util.List;
 public class CarController {
 
 
-    @Autowired
-    private CarRepository carRepository;
+    private CarService carService;
 
-    @Autowired
-    private BrandRepository brandRepository;
-
-    @Autowired
-    private ModelRepository modelRepository;
-
-    @Autowired
-    private VersionRepository versionRepository;
+    public CarController(CarService carService) {
+        this.carService = carService;
+    }
 
     @GetMapping("")
     public List<CarResponseDTO> getAll(){
-        List<CarResponseDTO> cars =
-                carRepository.findAll().stream().map(CarResponseDTO::new).toList();
+        var cars = carService.getAll();
         return cars;
     }
 
     @PostMapping("/create")
     public void saveCar(@RequestBody CarRequestDTO data){
-        Brand brand = brandRepository.findById(data.brand_id())
-                .orElseThrow(() -> new RuntimeException("Brand not found"));
-        Model model = modelRepository.findById(data.model_id())
-                .orElseThrow(() -> new RuntimeException("Model not found"));
-        Version version = versionRepository.findById(data.version_id())
-                .orElseThrow(() -> new RuntimeException("Version not found"));
+        carService.saveCar(data);
+        return;
+    }
 
-        Car carData = new Car(data, brand, model, version);
-        carRepository.save(carData);
+    @PutMapping("/update/{id}")
+    public void updateCar(@PathVariable int id, @RequestBody CarRequestDTO data){
+        carService.updateCar(id, data);
+        return;
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void deleteCar(@PathVariable int id){
+        carService.deleteCar(id);
+        return;
     }
 
 

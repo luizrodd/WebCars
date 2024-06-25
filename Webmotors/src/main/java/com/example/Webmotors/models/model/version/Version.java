@@ -1,12 +1,17 @@
 package com.example.Webmotors.models.model.version;
 
+import com.example.Webmotors.dto.VersionRequestDTO;
 import com.example.Webmotors.models.model.Model;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 @Entity
 @Data
 @Table(name = "Version")
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class Version {
     @Id
     @Column(name = "id")
@@ -19,5 +24,15 @@ public class Version {
     @JoinColumn(name = "model_id")
     public Model model;
 
+    public Version(VersionRequestDTO data) {
+        this.name = data.name();
+    }
 
+    public String getName() {
+        return this.name;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
 }

@@ -2,9 +2,7 @@ package com.example.Webmotors.controllers;
 
 import com.example.Webmotors.dto.BrandRequestDTO;
 import com.example.Webmotors.dto.BrandResponseDTO;
-import com.example.Webmotors.models.model.brand.Brand;
-import com.example.Webmotors.repository.BrandRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.Webmotors.services.BrandService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,42 +11,40 @@ import java.util.List;
 @RequestMapping("/brands")
 public class BrandController {
 
-    @Autowired
-    private BrandRepository brandRepository;
+    private BrandService brandService;
+
+    public BrandController(BrandService brandService) {
+        this.brandService = brandService;
+    }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("")
-    public List<BrandResponseDTO> getAll(){
-        List<BrandResponseDTO> brands =
-                brandRepository.findAll().stream().map(BrandResponseDTO::new).toList();
+    public List<BrandResponseDTO> getAll() {
+        var brands = brandService.getAll();
         return brands;
     }
 
     @PostMapping("/create")
-    public void saveBrand(@RequestBody BrandRequestDTO data){
-        Brand brandData = new Brand(data);
-        brandRepository.save(brandData);
+    public void saveBrand(@RequestBody BrandRequestDTO data) {
+        brandService.saveBrand(data);
         return;
     }
 
     @GetMapping("/{id}")
-    public BrandResponseDTO getBrand(@PathVariable Integer id){
-        Brand brand = brandRepository.findById(id).orElseThrow();
-        return new BrandResponseDTO(brand);
+    public BrandResponseDTO getBrand(@PathVariable Integer id) {
+        var brand = brandService.getBrand(id);
+        return brand;
     }
 
     @PutMapping("/{id}")
-    public void updateBrand(@PathVariable Integer id, @RequestBody BrandRequestDTO data){
-        Brand brand = brandRepository.findById(id).orElseThrow();
-        brand.update(data);
-        brandRepository.save(brand);
+    public void updateBrand(@PathVariable Integer id, @RequestBody BrandRequestDTO data) {
+        brandService.updateBrand(id, data);
         return;
     }
 
     @DeleteMapping("/{id}")
-    public void deleteBrand(@PathVariable Integer id){
-        Brand brand = brandRepository.findById(id).orElseThrow();
-        brandRepository.delete(brand);
+    public void deleteBrand(@PathVariable Integer id) {
+        brandService.deleteBrand(id);
         return;
     }
 

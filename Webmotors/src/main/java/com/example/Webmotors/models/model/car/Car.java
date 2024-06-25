@@ -15,8 +15,9 @@ import lombok.Data;
 public class Car {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer id;
+    private int id;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "brand_id")
@@ -45,10 +46,22 @@ public class Car {
         return this.version;
     }
 
+    public Car() {
+    }
+
     public Car(CarRequestDTO data, Brand brand, Model model, Version version) {
         this.description = data.description();
         this.brand = brand;
         this.model = model;
         this.version = version;
+    }
+
+    public String description() {
+        return this.description;
+    }
+
+
+    public int getId() {
+        return this.id;
     }
 }

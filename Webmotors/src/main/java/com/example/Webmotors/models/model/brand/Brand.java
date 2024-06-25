@@ -8,6 +8,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Table(name = "Brand")
@@ -41,5 +43,17 @@ public class Brand {
 
     public void update(BrandRequestDTO data) {
         this.name = data.name();
+    }
+
+    public List<Model> getModels() {
+        return this.models;
+    }
+
+    public Model getModelById(Integer id) {
+        return this.models.stream().filter(model -> model.getId().equals(id)).findFirst().orElse(null);
+    }
+
+    public Model getModel() {
+        return this.models.get(0);
     }
 }
