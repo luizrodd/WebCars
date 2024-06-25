@@ -10,6 +10,7 @@ import com.example.Webmotors.repository.BrandRepository;
 import com.example.Webmotors.repository.CarRepository;
 import com.example.Webmotors.repository.ModelRepository;
 import com.example.Webmotors.repository.VersionRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -53,10 +54,13 @@ public class CarService {
                 .orElseThrow(() -> new RuntimeException("Version not found"));
 
         Car carData = new Car(data, brand, model, version);
-        carRepository.save(carData);
+        carRepository.saveAndFlush(carData);
     }
 
     public void updateCar(int id, CarRequestDTO data) {
+        Car car = carRepository.findById((long) id)
+                .orElseThrow(() -> new RuntimeException("Car not found"));
+
         Brand brand = brandRepository.findById(data.brand_id())
                 .orElseThrow(() -> new RuntimeException("Brand not found"));
         Model model = modelRepository.findById(data.model_id())
@@ -64,8 +68,13 @@ public class CarService {
         Version version = versionRepository.findById(data.version_id())
                 .orElseThrow(() -> new RuntimeException("Version not found"));
 
-        Car carData = new Car(data, brand, model, version);
-        carRepository.save(carData);
+        car.setBrand(brand);
+        car.setModel(model);
+        car.setVersion(version);
+        car.setImage(data.image());
+        car.setDescription(data.description());
+
+        carRepository.saveAndFlush(car);
     }
 
     public void deleteCar(int id) {

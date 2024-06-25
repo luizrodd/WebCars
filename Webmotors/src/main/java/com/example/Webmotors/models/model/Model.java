@@ -34,8 +34,9 @@ public class Model {
     @OneToMany(mappedBy = "model", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Version> versions;
 
-    public Model(ModelRequestDTO model) {
-        this.name = model.name();
+    public Model(ModelRequestDTO data, Brand brand) {
+        this.name = data.name();
+        this.brand = brand;
     }
 
     public String getName() {

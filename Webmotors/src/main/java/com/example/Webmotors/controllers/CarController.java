@@ -2,23 +2,17 @@ package com.example.Webmotors.controllers;
 
 import com.example.Webmotors.dto.CarRequestDTO;
 import com.example.Webmotors.dto.CarResponseDTO;
-import com.example.Webmotors.models.model.Model;
-import com.example.Webmotors.models.model.brand.Brand;
-import com.example.Webmotors.models.model.car.Car;
-import com.example.Webmotors.models.model.version.Version;
-import com.example.Webmotors.repository.BrandRepository;
-import com.example.Webmotors.repository.CarRepository;
-import com.example.Webmotors.repository.ModelRepository;
-import com.example.Webmotors.repository.VersionRepository;
 import com.example.Webmotors.services.CarService;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/cars")
+@Tag(name = "Car")
 public class CarController {
 
 

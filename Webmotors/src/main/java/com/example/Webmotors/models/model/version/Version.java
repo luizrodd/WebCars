@@ -24,8 +24,9 @@ public class Version {
     @JoinColumn(name = "model_id")
     public Model model;
 
-    public Version(VersionRequestDTO data) {
+    public Version(VersionRequestDTO data, Model model) {
         this.name = data.name();
+        this.model = model;
     }
 
     public String getName() {
