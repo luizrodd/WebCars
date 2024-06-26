@@ -1,12 +1,14 @@
 package com.example.Webmotors.controllers;
 
 import com.example.Webmotors.dto.VersionRequestDTO;
+import com.example.Webmotors.dto.VersionResponseDTO;
 import com.example.Webmotors.services.VersionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/versions")
 public class VersionController {
@@ -22,6 +24,11 @@ public VersionController(VersionService versionService) {
     public void saveVersion(VersionRequestDTO data) {
         versionService.saveVersion(data);
         return;
+    }
+
+    @GetMapping("")
+    public List<VersionResponseDTO> getAll() {
+        return versionService.getAll();
     }
 
 }

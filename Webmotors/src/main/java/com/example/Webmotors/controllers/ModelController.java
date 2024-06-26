@@ -1,12 +1,14 @@
 package com.example.Webmotors.controllers;
 
 import com.example.Webmotors.dto.ModelRequestDTO;
+import com.example.Webmotors.dto.ModelResponseDTO;
 import com.example.Webmotors.services.ModelService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/models")
 public class ModelController {
@@ -23,4 +25,10 @@ public class ModelController {
         modelService.save(data);
         return;
     }
+
+    @GetMapping("")
+    public List<ModelResponseDTO> getModels() {
+        return modelService.getAll();
+    }
+
 }

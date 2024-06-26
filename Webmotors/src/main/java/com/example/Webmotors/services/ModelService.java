@@ -1,6 +1,7 @@
 package com.example.Webmotors.services;
 
 import com.example.Webmotors.dto.ModelRequestDTO;
+import com.example.Webmotors.dto.ModelResponseDTO;
 import com.example.Webmotors.models.model.Model;
 import com.example.Webmotors.models.model.brand.Brand;
 import com.example.Webmotors.repository.BrandRepository;
@@ -8,6 +9,8 @@ import com.example.Webmotors.repository.ModelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.List;
 
 @Service
 public class ModelService {
@@ -28,5 +31,10 @@ public class ModelService {
 
         Model modelData = new Model(data, brand);
         modelRepository.save(modelData);
+    }
+
+    public List<ModelResponseDTO> getAll() {
+        List<ModelResponseDTO> models = modelRepository.findAll().stream().map(ModelResponseDTO::new).toList();
+        return models;
     }
 }
