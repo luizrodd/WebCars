@@ -28,19 +28,20 @@ public class CarController {
         return cars;
     }
 
-    @PostMapping("/create")
+    @PostMapping("/")
     public void saveCar(@RequestBody CarRequestDTO data){
         carService.saveCar(data);
         return;
     }
 
-    @PutMapping("/update/{id}")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PutMapping("/{id}")
     public void updateCar(@PathVariable int id, @RequestBody CarRequestDTO data){
         carService.updateCar(id, data);
         return;
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public void deleteCar(@PathVariable int id){
         carService.deleteCar(id);
         return;
