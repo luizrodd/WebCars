@@ -19,7 +19,7 @@
           </div>
           <div>
             <label for="image" class="font-semibold w-24">Image</label>
-            <InputText :modelValue="image" :value="image" v-model="image" type="text" class="w-full" />
+            <InputText :modelValue="createImage" :value="createImage" v-model="createImage" type="text" class="w-full" />
           </div>
           <div class="flex justify-end gap-2">
             <Button type="button" label="Cancel" severity="secondary" @click="visibleCreate = false" />
@@ -91,6 +91,7 @@ export default defineComponent({
     const createModel = ref(null);
     const createVersion = ref(null);
     const createBrand = ref(null);
+    let createImage = ref('');
 
     let image = ref('');
     let id = ref(null);
@@ -103,12 +104,18 @@ export default defineComponent({
       try {
         await axios.post('http://localhost:8080/cars/', {
           description: 'New Car',
-          image: image.value,
+          image: createImage.value,
           brand_id: createBrand.value,
           model_id: createModel.value,
           version_id: createVersion.value
+        }).then(() => {
+          createImage.value = '';
+          createBrand.value = null;
+          createModel.value = null;
+          createVersion.value = null;
         });
         fetchCars();
+        visibleCreate.value = false;
       } catch (error) {
         console.error("Failed to create car:", error);
       }
@@ -123,6 +130,7 @@ export default defineComponent({
           model_id: selectedModel.value.id,
           version_id: selectedVersion.value.id
         });
+        visible.value = false;
         fetchCars();
       } catch (error) {
         console.error("Failed to update car:", error);
@@ -132,6 +140,7 @@ export default defineComponent({
     const deleteCar = async () => {
       try {
         await axios.delete(`http://localhost:8080/cars/${id.value}`);
+        visible.value = false;
         fetchCars();
       } catch (error) {
         console.error("Failed to delete car:", error);
@@ -208,6 +217,7 @@ export default defineComponent({
     return {
       visible,
       create,
+      createImage,
       openCreate,
       visibleCreate,
       carData,

@@ -36,4 +36,8 @@ public class Version {
     public Integer getId() {
         return this.id;
     }
+
+    public void setId(int i) {
+        this.id = i;
+    }
 }

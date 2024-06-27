@@ -36,10 +36,14 @@ public class Brand {
         return this.id;
     }
 
+    public Brand(Integer id,String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public Brand(BrandRequestDTO data){
         this.name = data.name();
     }
-
 
     public void update(BrandRequestDTO data) {
         this.name = data.name();
@@ -55,5 +59,9 @@ public class Brand {
 
     public Model getModel() {
         return this.models.get(0);
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

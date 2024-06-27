@@ -38,6 +38,12 @@ public class Model {
         this.name = data.name();
         this.brand = brand;
     }
+    public Model(int id, String name, Brand brand) {
+        this.id = id;
+        this.name = name;
+        this.brand = brand;
+    }
+
 
     public String getName() {
         return this.name;
@@ -53,5 +59,9 @@ public class Model {
 
     public Version getVersion() {
         return this.versions.get(0);
+    }
+
+    public void setId(int i) {
+        this.id = i;
     }
 }

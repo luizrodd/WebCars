@@ -51,8 +51,8 @@ public class Car {
         return this.version;
     }
 
-    public Car() {
-    }
+    public Car(){}
+
 
     public Car(CarRequestDTO data, Brand brand, Model model, Version version) {
         this.image = data.image();
@@ -93,5 +93,9 @@ public class Car {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setId(long l) {
+        this.id = (int) l;
     }
 }

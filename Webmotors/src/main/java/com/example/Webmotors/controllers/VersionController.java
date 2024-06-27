@@ -16,7 +16,7 @@ public class VersionController {
     @Autowired
     private VersionService versionService;
 
-public VersionController(VersionService versionService) {
+    public VersionController(VersionService versionService) {
         this.versionService = versionService;
     }
 
