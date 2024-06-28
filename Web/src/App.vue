@@ -27,37 +27,41 @@
           </div>
         </Dialog>
       </li>
-      <li v-for="car in carData" :key="car.id" class="card">
-        <h3>{{ car.brand.name }}</h3>
-        <p>{{ car.brand.model.name }}</p>
-        <p>{{ car.brand.model.version.name }}</p>
+      <li v-for="car in carData" :key="car.id" class="card w-full">
         <img :src="car.image" alt="Car Image" class="car-image">
-        <div class="card flex justify-center">
-          <Button label="Tools" @click="openDialogWithBrand(car.id,car.image,car.brand, car.brand.model, car.brand.model.version)" />
-          <Dialog v-model:visible="visible" modal header="Car" :style="{ width: '25rem' }">
-            <span class="text-surface-500 dark:text-surface-400 block mb-8">Update your car.</span>
-            <div class="flex items-center gap-4 mb-4">
-              <label for="brand" class="font-semibold w-24">Brand</label>
-              <Select v-model="selectedBrand.id" :options="brandData" optionLabel="name" optionValue="id" class="w-full md:w-56" @change="handleChange"  highlightOnSelect/>
-            </div>
-            <div class="flex items-center gap-4 mb-4">
-              <label for="model" class="font-semibold w-24">Model</label>
-              <Select v-model="selectedModel.id" :options="modelFiltered" optionLabel="name"  optionValue="id" class="w-full md:w-56" @change="handleVersionChange"  highlightOnSelect/>
-            </div>
-            <div class="flex items-center gap-4 mb-4">
-              <label for="version" class="font-semibold w-24">Version</label>
-              <Select v-model="selectedVersion.id" :options="versionFiltered" optionLabel="name" optionValue="id" class="w-full md:w-56" highlightOnSelect/>
-            </div>
-            <div>
-              <label for="image" class="font-semibold w-24">Image</label>
-              <InputText :modelValue="image" :value="image" v-model="image" type="text" class="w-full" />
-            </div>
-            <div class="flex justify-end gap-2">
-              <Button type="button" label="Cancel" severity="secondary" @click="visible = false" />
-              <Button type="button" label="Save" @click="update">Update</Button>
-              <Button type="button" label="Delete" @click="deleteCar">Delete</Button>
-            </div>
-          </Dialog>
+        <div class="bg-gray-300 w-[500px] rounded-sm flex justify-between flex-row ">
+          <div>
+            <h3 class="text-lg text-black">Brand: {{ car.brand.name }}</h3>
+            <p class="text-lg text-black">Model: {{ car.brand.model.name }}</p>
+            <p class="text-lg text-black">Version: {{ car.brand.model.version.name }}</p>
+          </div>
+          <div class="flex">
+            <Button label="Tools" @click="openDialogWithBrand(car.id,car.image,car.brand, car.brand.model, car.brand.model.version)" />
+            <Dialog v-model:visible="visible" modal header="Car" :style="{ width: '25rem' }">
+              <span class="text-surface-500 dark:text-surface-400 block mb-8">Update your car.</span>
+              <div class="flex items-center gap-4 mb-4">
+                <label for="brand" class="font-semibold w-24">Brand</label>
+                <Select v-model="selectedBrand.id" :options="brandData" optionLabel="name" optionValue="id" class="w-full md:w-56" @change="handleChange"  highlightOnSelect/>
+              </div>
+              <div class="flex items-center gap-4 mb-4">
+                <label for="model" class="font-semibold w-24">Model</label>
+                <Select v-model="selectedModel.id" :options="modelFiltered" optionLabel="name"  optionValue="id" class="w-full md:w-56" @change="handleVersionChange"  highlightOnSelect/>
+              </div>
+              <div class="flex items-center gap-4 mb-4">
+                <label for="version" class="font-semibold w-24">Version</label>
+                <Select v-model="selectedVersion.id" :options="versionFiltered" optionLabel="name" optionValue="id" class="w-full md:w-56" highlightOnSelect/>
+              </div>
+              <div>
+                <label for="image" class="font-semibold w-24">Image</label>
+                <InputText :modelValue="image" :value="image" v-model="image" type="text" class="w-full" />
+              </div>
+              <div class="flex justify-end gap-2">
+                <Button type="button" label="Cancel" severity="secondary" @click="visible = false" />
+                <Button type="button" label="Save" @click="update">Update</Button>
+                <Button type="button" label="Delete" @click="deleteCar">Delete</Button>
+              </div>
+            </Dialog>
+          </div>
         </div>
       </li>
     </ul>
